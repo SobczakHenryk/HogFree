@@ -27,7 +27,49 @@
 
 **Ruta base de las skills:** `.github/skills/`
 
-## 🔒 Reglas Generales
+## � Flujo SDD — Obligatorio antes de cualquier desarrollo
+
+**REGLA CRÍTICA ABSOLUTA — Todo desarrollo debe pasar por el flujo Spec-Driven Development (SDD). Sin excepción.**
+
+### Antes de escribir una sola línea de código, verifica:
+
+| Artefacto | Ubicación | Obligatorio |
+|---|---|---|
+| `spec.md` | `specs/NNN-feature-name/spec.md` | ✅ Siempre |
+| `plan.md` | `specs/NNN-feature-name/plan.md` | ✅ Siempre |
+| `tasks.md` | `specs/NNN-feature-name/tasks.md` | ✅ Siempre |
+
+**Si alguno de estos artefactos no existe → DETENTE. No escribas código.**
+
+---
+
+### Flujo según tipo de pedido
+
+#### 🆕 Nueva funcionalidad
+1. Verificar si cabe en una spec existente o requiere spec nueva.
+2. La spec DEBE incluir historia de usuario con criterios de aceptación.
+3. Generar (o actualizar) `plan.md` con `/speckit.plan`.
+4. Generar (o actualizar) `tasks.md` con `/speckit.tasks`.
+5. Solo entonces comenzar la implementación.
+
+#### 🐛 Bug reportado
+1. **Primero analizar la causa raíz**:
+   - ¿El comportamiento no estaba especificado / era ambiguo en el spec? → **Bug de spec**: actualizar el spec para clarificar el caso, luego regenerar plan y tasks si corresponde.
+   - ¿El spec era claro y la implementación no lo respetó? → **Bug de implementación**: corregir el código sin modificar el spec (a menos que el análisis revele que la spec era incompleta).
+2. En ambos casos, documentar el hallazgo en la spec antes de tocar código.
+
+---
+
+### Regla de sincronía — spec ↔ plan ↔ tasks
+
+> **Siempre que se cree o modifique un `spec.md`, se deben regenerar `plan.md` y `tasks.md`** (usando `/speckit.plan` y `/speckit.tasks`) antes de continuar con la implementación.
+
+- Un cambio en spec que afecte requisitos, entidades o flujos → regenerar plan + tasks.
+- Un cambio menor (typo, clarificación sin impacto técnico) → no requiere regenerar.
+
+---
+
+## �🔒 Reglas Generales
 
 - No ejecutar comandos git (commit, push, pull) a menos que el usuario lo pida explícitamente.
 - Seguir las convenciones del proyecto existente.

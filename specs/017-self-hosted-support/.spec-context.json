@@ -1,0 +1,10 @@
+{
+  "workflow": "speckit",
+  "specName": "017-self-hosted-support",
+  "branch": "017-self-hosted-support",
+  "selectedAt": "2026-04-24T20:21:19.308Z",
+  "currentStep": "specify",
+  "status": "draft",
+  "stepHistory": {},
+  "transitions": []
+}
