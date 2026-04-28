@@ -1,4 +1,4 @@
-import BottomSheet, { BottomSheetBackdrop, useBottomSheetScrollableCreator } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView, BottomSheetTextInput, useBottomSheetScrollableCreator } from '@gorhom/bottom-sheet';
 import { FlashList } from '@shopify/flash-list';
 import React, { forwardRef, useMemo, useState } from 'react';
 import {
@@ -189,6 +189,8 @@ export const AddMetricSheet = forwardRef<BottomSheet, AddMetricSheetProps>(funct
       snapPoints={snapPoints}
       topInset={topInset}
       enablePanDownToClose
+      keyboardBehavior="extend"
+      keyboardBlursBehavior="restore"
       backdropComponent={(props) => (
         <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} />
       )}
@@ -265,7 +267,11 @@ export const AddMetricSheet = forwardRef<BottomSheet, AddMetricSheetProps>(funct
             )}
           </View>
         ) : step === 'chartType' ? (
-          <View className="flex-1 px-4 pt-6">
+          <BottomSheetScrollView
+            className="flex-1 px-4 pt-6"
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={{ paddingBottom: 32 }}
+          >
             <Pressable
               onPress={() => setStep('event')}
               className="self-start rounded-full border border-border dark:border-[#262626] px-3 py-1"
@@ -337,12 +343,20 @@ export const AddMetricSheet = forwardRef<BottomSheet, AddMetricSheetProps>(funct
 
             <View className="mt-4 rounded-xl bg-background dark:bg-[#0D0D0D] p-4">
               <Text className="text-text-tertiary text-xs uppercase tracking-widest mb-2">{t('common.name')}</Text>
-              <TextInput
+              <BottomSheetTextInput
                 value={customLabel}
                 onChangeText={setCustomLabel}
                 placeholder={t('addMetric.visualizationName')}
                 placeholderTextColor="#737373"
-                className="rounded-xl bg-background-secondary dark:bg-[#1A1A1A] px-4 py-3 text-text-primary dark:text-[#FFFFFF]"
+                style={{
+                  borderRadius: 12,
+                  backgroundColor: isDark ? '#1A1A1A' : '#F5F5F5',
+                  paddingHorizontal: 16,
+                  paddingVertical: 12,
+                  color: isDark ? '#FFFFFF' : '#171717',
+                  fontFamily: 'Inter',
+                  fontSize: 16,
+                }}
                 autoCapitalize="none"
                 autoCorrect={false}
               />
@@ -371,7 +385,7 @@ export const AddMetricSheet = forwardRef<BottomSheet, AddMetricSheetProps>(funct
                   : t('common.add')}
               </Text>
             </Pressable>
-          </View>
+          </BottomSheetScrollView>
         ) : step === 'barChartConfig' ? (
           /* ── BarChart config step ──────────────────────────────────────── */
           <View className="flex-1 px-4 pt-4">
