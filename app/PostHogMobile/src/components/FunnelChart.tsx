@@ -108,9 +108,9 @@ export function FunnelChart({ metric, timeFilter, drag, isActive }: FunnelChartP
           )}
         </View>
         {drag && (
-          <View className="pl-3 pt-0.5">
+          <Pressable onLongPress={drag} hitSlop={8} className="pl-3 pt-0.5">
             <GripVertical size={20} color={isDark ? '#A3A3A3' : '#525252'} />
-          </View>
+          </Pressable>
         )}
       </View>
       <Text className="text-xs text-text-tertiary mb-4">{t('funnel.description').replace('{count}', String(events.length))}</Text>

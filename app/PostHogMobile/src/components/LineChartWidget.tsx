@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Dimensions, Text, View } from 'react-native';
+import { Animated, Dimensions, Pressable, Text, View } from 'react-native';
 import { GripVertical } from 'lucide-react-native';
 import { LineChart } from 'react-native-gifted-charts';
 import { format, parseISO } from 'date-fns';
@@ -191,7 +191,7 @@ export function LineChartWidget({ metric, timeFilter, drag, isActive }: LineChar
             <Text className="text-sm font-inter-semibold text-text-primary dark:text-[#FFFFFF]">{metric.displayName || metric.label}</Text>
             <Text className="text-xs text-text-tertiary mt-3">{t('charts.noData')}</Text>
           </View>
-          {drag && <View className="pl-3 pt-1"><GripVertical size={20} color={isDark ? '#A3A3A3' : '#525252'} /></View>}
+          {drag && <Pressable onLongPress={drag} hitSlop={8} className="pl-3 pt-1"><GripVertical size={20} color={isDark ? '#A3A3A3' : '#525252'} /></Pressable>}
         </View>
       ) : (
         <View>
@@ -206,9 +206,9 @@ export function LineChartWidget({ metric, timeFilter, drag, isActive }: LineChar
               </Text>
             </View>
             {drag && (
-              <View className="justify-center pl-3 pt-1">
+              <Pressable onLongPress={drag} hitSlop={8} className="justify-center pl-3 pt-1">
                 <GripVertical size={20} color={isDark ? '#A3A3A3' : '#525252'} />
-              </View>
+              </Pressable>
             )}
           </View>
           <View className="mt-3">

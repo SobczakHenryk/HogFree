@@ -117,9 +117,9 @@ export function MetricCard({ metric, timeFilter, drag, isActive }: MetricCardPro
       )}
         </View>
         {drag && (
-          <View className="justify-center pl-3">
+          <Pressable onLongPress={drag} hitSlop={8} className="justify-center pl-3">
             <GripVertical size={20} color={isDark ? '#A3A3A3' : '#525252'} />
-          </View>
+          </Pressable>
         )}
       </View>
     </View>
